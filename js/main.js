@@ -269,7 +269,7 @@ if (
   requestAnimationFrame(renderCursor);
 
   // Interactive targets hover expansion
-  const interactiveSelector = 'a, button, .btn, .burger, .row, .crow, .prev, input, textarea, [role="button"]';
+  const interactiveSelector = 'a, button, .btn, .burger, .row, .crow, .prev, input, textarea, [role="button"], .block-card, .badge';
 
   document.addEventListener('mouseover', e => {
     if (e.target.closest(interactiveSelector)) {
@@ -304,6 +304,40 @@ if (
       heroTitle.style.setProperty('--name-my', '-500px');
     });
   }
+
+  // Universal Cursor Spotlight for Block Titles (.spotlight-text)
+  const spotlightTargets = document.querySelectorAll('.spotlight-text');
+  spotlightTargets.forEach(el => {
+    el.addEventListener('pointermove', e => {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      el.style.setProperty('--spot-x', `${x.toFixed(1)}px`);
+      el.style.setProperty('--spot-y', `${y.toFixed(1)}px`);
+    }, { passive: true });
+
+    el.addEventListener('pointerleave', () => {
+      el.style.setProperty('--spot-x', '-500px');
+      el.style.setProperty('--spot-y', '-500px');
+    });
+  });
+
+  // Dynamic Card Border Spotlight (.block-card)
+  const blockCards = document.querySelectorAll('.block-card');
+  blockCards.forEach(card => {
+    card.addEventListener('pointermove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--card-x', `${x.toFixed(1)}px`);
+      card.style.setProperty('--card-y', `${y.toFixed(1)}px`);
+    }, { passive: true });
+
+    card.addEventListener('pointerleave', () => {
+      card.style.setProperty('--card-x', '-500px');
+      card.style.setProperty('--card-y', '-500px');
+    });
+  });
 
   // Active click contraction
   window.addEventListener('mousedown', () => document.body.classList.add('cursor-active'));

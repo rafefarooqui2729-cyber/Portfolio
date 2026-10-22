@@ -151,6 +151,89 @@ a {
   font-weight: 500;
 }
 
+/* Badges for Distinct Section Blocks */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(240, 233, 213, 0.04);
+  border: 1px solid var(--line);
+  padding: 5px 12px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+  width: fit-content;
+}
+
+.badge::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 0 8px var(--lime);
+}
+
+/* Universal Spotlight Color Effect */
+.spotlight-text {
+  /* On desktop: radial gradient cursor spotlight */
+  background: radial-gradient(
+    circle 280px at var(--spot-x, -500px) var(--spot-y, -500px),
+    var(--lime) 0%,
+    #d8ff4f 24%,
+    var(--ink) 65%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: filter .35s ease;
+}
+
+.spotlight-text:hover {
+  filter: drop-shadow(0 0 20px rgba(200, 255, 0, 0.35));
+}
+
+/* Separate Block Containers (.block-card) */
+.block-card {
+  position: relative;
+  background: rgba(18, 18, 16, 0.72);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  transition: border-color .35s ease, box-shadow .35s ease, transform .35s var(--ease);
+}
+
+/* Animated Spotlight Border on Cards */
+.block-card::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    circle 260px at var(--card-x, -500px) var(--card-y, -500px),
+    rgba(200, 255, 0, 0.5) 0%,
+    rgba(200, 255, 0, 0.12) 40%,
+    transparent 70%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+
+.block-card:hover::after {
+  opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .block-card:hover {
+    border-color: rgba(200, 255, 0, 0.35);
+    box-shadow: 0 20px 52px rgba(0, 0, 0, 0.65), 0 0 32px rgba(200, 255, 0, 0.08);
+  }
+}
+
 h1, h2, h3 {
   font-family: var(--display);
   font-weight: 400;
@@ -586,7 +669,7 @@ body.cursor-name-focus .hero-title .ln:first-child .title-word {
 }
 
 /* ==========================================================================
-   TABLET & MOBILE HERO ADAPTATIONS (Side-by-side & Editorial Overlay on Mobile)
+   TABLET & MOBILE HERO ADAPTATIONS (Side-by-side Name & Portrait, Text Moves Down)
    ========================================================================== */
 @media (max-width: 860px) {
   .hero {
@@ -598,86 +681,54 @@ body.cursor-name-focus .hero-title .ln:first-child .title-word {
   }
   .hero-grid {
     position: relative;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    grid-template-areas:
+      "status status"
+      "title visual"
+      "hl hl";
+    row-gap: 14px;
+    column-gap: 12px;
+    align-items: center;
     min-height: auto;
   }
   .hero-content {
-    position: relative;
-    z-index: 4;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding-bottom: 0;
+    display: contents;
   }
   .status {
+    grid-area: status;
     position: relative;
     z-index: 4;
-    margin-bottom: 12px;
+    margin-bottom: 2px;
   }
   .hero-title {
+    grid-area: title;
     position: relative;
     z-index: 4;
-    font-size: clamp(36px, 10.5vw, 64px);
+    font-size: clamp(32px, 8.8vw, 54px);
     line-height: .92;
-    margin-bottom: 14px;
-    max-width: 68%;
-  }
-  .hero-hl {
-    position: relative;
-    z-index: 4;
-    margin-top: 0;
-    padding-bottom: 0;
-  }
-  .role {
-    font-size: clamp(13px, 3.6vw, 17px);
-    margin-bottom: 10px;
-    max-width: 72%;
-    text-shadow: 0 2px 12px rgba(10, 10, 10, 0.95);
-  }
-  .tagline {
-    font-size: clamp(19px, 4.8vw, 30px);
-    line-height: 1.15;
-    margin-bottom: 14px;
-    max-width: 78%;
-    text-shadow: 0 2px 14px rgba(10, 10, 10, 0.95);
-  }
-  .hero-hl .d {
-    font-size: clamp(13.5px, 3.6vw, 15.5px);
-    line-height: 1.58;
-    margin-bottom: 22px;
-    max-width: 82%;
-    text-shadow: 0 2px 16px rgba(10, 10, 10, 0.95);
-  }
-  .tags {
-    position: relative;
-    z-index: 4;
-    gap: 8px 14px;
-    margin-bottom: 24px;
+    margin-bottom: 0;
     max-width: 100%;
   }
-  .btns {
-    position: relative;
-    z-index: 4;
-    flex-direction: column;
-    width: 100%;
-    gap: 12px;
+  .hero-title .title-word {
+    transform: none !important;
+    opacity: 1 !important;
   }
-  .btn {
-    width: 100%;
-    padding: 15px 20px;
-    justify-content: center;
+  .hero-title .ln.stroke .title-word {
+    -webkit-text-stroke: 1.5px var(--lime);
   }
-
-  /* Large Portrait positioned on the right alongside content */
   .hero-visual {
-    position: absolute;
-    right: calc(var(--pad) - 4%);
-    top: -6px;
-    width: clamp(210px, 58vw, 360px);
-    height: min(65vh, 520px);
+    grid-area: visual;
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    width: 100%;
+    height: 100%;
+    max-height: 290px;
     z-index: 2;
-    pointer-events: none;
+    pointer-events: auto;
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -690,70 +741,101 @@ body.cursor-name-focus .hero-title .ln:first-child .title-word {
   .fig {
     width: 100%;
     height: 100%;
-    max-width: 100%;
+    max-height: 290px;
+    max-width: 230px;
     margin-bottom: 0;
     transform: none !important;
     position: relative;
   }
   .fig-glow {
-    inset: 5% -15% 15% -15%;
+    inset: -5% -10% -5% -10%;
   }
   .fig-depth {
-    inset: 10% 0 0 0;
+    inset: 5% 0 0 0;
   }
   .fig img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    object-position: top right;
+    object-position: bottom center;
     display: block;
-    /* Soft atmospheric left & bottom feathering so text overlays seamlessly */
-    -webkit-mask-image: 
-      linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.3) 14%, #000 36%, #000 100%),
-      linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
-    -webkit-mask-composite: source-in;
-    mask-image: 
-      linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.3) 14%, #000 36%, #000 100%),
-      linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
-    mask-composite: intersect;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 86%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 86%, transparent 100%);
     filter: 
       drop-shadow(0 10px 24px rgba(0, 0, 0, 0.95)) 
-      drop-shadow(0 0 35px rgba(0, 0, 0, 0.8));
+      drop-shadow(0 0 28px rgba(0, 0, 0, 0.7));
+  }
+  .hero-hl {
+    grid-area: hl;
+    position: relative;
+    z-index: 4;
+    margin-top: 10px;
+    padding-bottom: 0;
+    width: 100%;
+  }
+  .role {
+    font-size: clamp(13px, 3.8vw, 17px);
+    margin-bottom: 8px;
+    max-width: 100%;
+  }
+  .tagline {
+    font-size: clamp(19px, 4.8vw, 28px);
+    line-height: 1.18;
+    margin-bottom: 12px;
+    max-width: 100%;
+  }
+  .hero-hl .d {
+    font-size: clamp(13.5px, 3.6vw, 15.5px);
+    line-height: 1.58;
+    margin-bottom: 20px;
+    max-width: 100%;
+  }
+  .tags {
+    position: relative;
+    z-index: 4;
+    gap: 8px 12px;
+    margin-bottom: 22px;
+    max-width: 100%;
+  }
+  .btns {
+    position: relative;
+    z-index: 4;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+  .btn {
+    width: 100%;
+    padding: 15px 20px;
+    justify-content: center;
   }
 }
 
 @media (max-width: 480px) {
+  .hero-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+    row-gap: 12px;
+    column-gap: 8px;
+  }
   .hero-title {
-    font-size: clamp(34px, 10vw, 48px);
-    max-width: 66%;
+    font-size: clamp(30px, 9vw, 44px);
   }
-  .hero-visual {
-    width: clamp(195px, 56vw, 290px);
-    height: min(60vh, 460px);
-  }
-  .role {
-    max-width: 70%;
-  }
-  .tagline {
-    max-width: 75%;
-  }
-  .hero-hl .d {
-    max-width: 80%;
+  .fig {
+    max-height: 240px;
+    max-width: 190px;
   }
 }
 
 @media (max-width: 360px) {
+  .hero-grid {
+    grid-template-columns: 1.2fr 0.8fr;
+  }
   .hero-title {
-    font-size: clamp(28px, 9vw, 34px);
-    max-width: 62%;
+    font-size: clamp(26px, 8.2vw, 32px);
   }
-  .hero-visual {
-    width: 180px;
-    height: 380px;
-    right: -8px;
-  }
-  .role, .tagline, .hero-hl .d {
-    max-width: 72%;
+  .fig {
+    max-height: 200px;
+    max-width: 160px;
   }
 }
 
@@ -773,8 +855,8 @@ body.cursor-name-focus .hero-title .ln:first-child .title-word {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: clamp(24px, 3.5vw, 48px);
-  border-top: 1px solid var(--line);
-  padding-block: clamp(28px, 3.5vw, 44px);
+  padding: clamp(28px, 3.5vw, 48px);
+  margin-bottom: clamp(24px, 3vw, 36px);
 }
 
 .proj .meta {
@@ -1041,10 +1123,15 @@ dd li {
 /* ==========================================================================
    ABOUT SECTION
    ========================================================================== */
+.about-card {
+  padding: clamp(28px, 4.5vw, 56px);
+  margin-bottom: clamp(20px, 3vw, 36px);
+}
+
 .about-grid {
   position: relative;
   display: grid;
-  grid-template-columns: 420px 1fr;
+  grid-template-columns: 400px 1fr;
   align-items: center;
   gap: clamp(32px, 5vw, 64px);
   min-height: clamp(500px, 48vw, 680px);
@@ -1053,7 +1140,7 @@ dd li {
 .pf {
   position: relative;
   width: 100%;
-  max-width: 420px;
+  max-width: 400px;
   aspect-ratio: 864/1421;
   max-height: min(80vh, 660px);
   margin-inline: auto;
@@ -1065,7 +1152,7 @@ dd li {
 .pf-glow {
   position: absolute;
   inset: 15% 5% 5% 5%;
-  background: radial-gradient(circle at 50% 50%, rgba(200, 255, 0, 0.06) 0%, rgba(10, 10, 10, 0) 70%);
+  background: radial-gradient(circle at 50% 50%, rgba(200, 255, 0, 0.08) 0%, rgba(10, 10, 10, 0) 70%);
   z-index: -1;
   pointer-events: none;
 }
@@ -1078,7 +1165,7 @@ dd li {
   display: block;
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 82%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 82%, transparent 100%);
-  filter: contrast(1.04) drop-shadow(0 16px 32px rgba(0, 0, 0, 0.6));
+  filter: contrast(1.04) drop-shadow(0 16px 32px rgba(0, 0, 0, 0.7));
 }
 
 .about-content blockquote {
@@ -1120,26 +1207,57 @@ dd li {
 }
 
 @media (max-width: 860px) {
+  .about-card {
+    padding: clamp(20px, 3.5vw, 32px) clamp(16px, 3.5vw, 24px);
+  }
   .about-grid {
     display: flex;
     flex-direction: column;
     align-items: stretch;
     min-height: 0;
-    gap: 28px;
+    gap: 0;
+    position: relative;
   }
   .pf {
-    width: min(80vw, 340px);
-    max-height: 48vh;
+    width: min(84vw, 340px);
+    height: 380px;
+    max-height: 52vh;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .pf img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: top center;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 56%, rgba(0, 0, 0, 0.28) 78%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 56%, rgba(0, 0, 0, 0.28) 78%, transparent 100%);
+    filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.9));
+  }
+  /* In next image it should overlay: about text overlays the bottom of the portrait */
+  .about-content {
+    position: relative;
+    z-index: 3;
+    margin-top: -120px;
+    background: linear-gradient(180deg, transparent 0%, rgba(14, 14, 12, 0.85) 18%, rgba(14, 14, 12, 0.98) 36%, rgba(14, 14, 12, 1) 100%);
+    padding: 32px 16px 16px;
+    border-radius: 12px;
   }
   .about-content blockquote {
-    margin: 14px 0 24px;
+    font-size: clamp(19px, 4.8vw, 30px);
+    line-height: 1.24;
+    margin: 12px 0 20px;
   }
 }
 
 /* ==========================================================================
    TECHNICAL INDEX (SKILLS)
    ========================================================================== */
+.skills-card {
+  padding: clamp(24px, 3.5vw, 44px);
+}
+
 .idx {
   border-top: 1px solid var(--ink);
 }
@@ -1199,6 +1317,10 @@ dd li {
 /* ==========================================================================
    THE JOURNEY (TIMELINE)
    ========================================================================== */
+.journey-card {
+  padding: clamp(28px, 4vw, 52px);
+}
+
 .tl {
   list-style: none;
   border-left: 1px solid var(--line);
@@ -1253,8 +1375,12 @@ dd li {
 /* ==========================================================================
    CONTACT SECTION
    ========================================================================== */
+.contact-card {
+  padding: clamp(28px, 4.5vw, 56px);
+}
+
 .contact h2 {
-  font-size: clamp(38px, 8.5vw, 140px);
+  font-size: clamp(38px, 8.5vw, 130px);
   margin-bottom: clamp(24px, 4vw, 48px);
 }
 
@@ -1335,6 +1461,48 @@ footer {
 .rv.in {
   opacity: 1;
   transform: none;
+}
+
+/* ==========================================================================
+   MOBILE & TOUCH CONTINUOUS COLOR SHIMMER ANIMATION
+   ========================================================================== */
+@media (hover: none), (max-width: 860px) {
+  .spotlight-text, .hero-title .title-word {
+    background: linear-gradient(
+      110deg,
+      var(--ink) 0%,
+      var(--ink) 28%,
+      var(--lime) 50%,
+      #e8ff59 58%,
+      var(--ink) 72%,
+      var(--ink) 100%
+    ) !important;
+    background-size: 250% 100% !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    animation: mobileShimmer 6s ease-in-out infinite !important;
+  }
+  
+  #work .head h2.spotlight-text { animation-delay: 0s !important; }
+  #jobmatch h3.spotlight-text { animation-delay: 0.9s !important; }
+  #twist h3.spotlight-text { animation-delay: 1.8s !important; }
+  #about .head h2.spotlight-text { animation-delay: 2.7s !important; }
+  #about blockquote.spotlight-text { animation-delay: 3.4s !important; }
+  #skills .head h2.spotlight-text { animation-delay: 4.2s !important; }
+  #journey .head h2.spotlight-text { animation-delay: 5.0s !important; }
+  #contact h2.spotlight-text { animation-delay: 5.8s !important; }
+}
+
+@keyframes mobileShimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  50% {
+    background-position: 0% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
 }
 
 /* ==========================================================================

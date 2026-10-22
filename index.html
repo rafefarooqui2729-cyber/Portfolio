@@ -84,15 +84,18 @@
     <section id="work">
       <div class="wrap">
         <div class="head rv">
-          <h2>Selected<br>Work</h2>
+          <div>
+            <span class="badge lab"><b>01</b> — Selected Projects</span>
+            <h2 class="spotlight-text">Selected<br>Work</h2>
+          </div>
           <p class="lab">Projects · Learning by building</p>
         </div>
 
         <!-- Project 1: JobMatch AI -->
-        <article class="proj rv" id="jobmatch">
+        <article class="proj block-card rv" id="jobmatch">
           <div class="meta">
             <p class="lab"><b>01</b> — Flagship · Job-matching platform</p>
-            <h3>JobMatch AI</h3>
+            <h3 class="spotlight-text">JobMatch AI</h3>
             <span class="st" data-s="live">Live</span>
             <p class="proj-desc">A platform that helps candidates discover relevant opportunities by comparing their profiles with job requirements.</p>
           </div>
@@ -134,10 +137,10 @@
         </article>
 
         <!-- Project 2: Twist In Flavours -->
-        <article class="proj s rv" id="twist">
+        <article class="proj block-card s rv" id="twist">
           <div class="meta">
             <p class="lab"><b>02</b> — Secondary · Website</p>
-            <h3>Twist In<br>Flavours</h3>
+            <h3 class="spotlight-text">Twist In<br>Flavours</h3>
             <span class="st">Frontend contribution</span>
             <dl style="margin-top:24px">
               <dt>Role</dt>
@@ -168,26 +171,37 @@
 
     <!-- ABOUT SECTION -->
     <section id="about">
-      <div class="wrap about-grid">
-        <div class="pf rv">
-          <div class="pf-glow" aria-hidden="true"></div>
-          <img src="assets/portrait-cutout.webp" alt="Abdul Rafe Farooqui, portrait cutout" loading="lazy" width="864" height="1421">
+      <div class="wrap">
+        <div class="head rv">
+          <div>
+            <span class="badge lab"><b>02</b> — Background &amp; Philosophy</span>
+            <h2 class="spotlight-text">About<br>Rafe</h2>
+          </div>
+          <p class="lab">Philosophy · Focus · Education</p>
         </div>
-        <div class="about-content rv">
-          <p class="lab"><b>—</b> About</p>
-          <blockquote>“I learn by building. Every project helps me understand how ideas become interfaces, how interfaces connect to systems, and how thoughtful engineering turns those systems into useful products.”</blockquote>
-          <p class="lab" style="margin-bottom:14px">Current focus</p>
-          <ul class="focus">
-            <li><b>01</b>Developing JobMatch AI</li>
-            <li><b>02</b>Strengthening data structures and algorithms</li>
-            <li><b>03</b>Building full-stack applications</li>
-            <li><b>04</b>Exploring practical AI integration</li>
-            <li><b>05</b>Improving engineering and debugging habits</li>
-          </ul>
-          <p class="edu">
-            <strong>Bachelor of Computer Applications — Computer Science</strong>
-            Deogiri College, affiliated with Dr. Babasaheb Ambedkar Marathwada University
-          </p>
+        <div class="about-card block-card rv">
+          <div class="about-grid">
+            <div class="pf">
+              <div class="pf-glow" aria-hidden="true"></div>
+              <img src="assets/portrait-cutout.webp" alt="Abdul Rafe Farooqui, portrait cutout" loading="lazy" width="864" height="1421">
+            </div>
+            <div class="about-content">
+              <p class="lab"><b>—</b> Focus &amp; Philosophy</p>
+              <blockquote class="spotlight-text">“I learn by building. Every project helps me understand how ideas become interfaces, how interfaces connect to systems, and how thoughtful engineering turns those systems into useful products.”</blockquote>
+              <p class="lab" style="margin-bottom:14px">Current focus</p>
+              <ul class="focus">
+                <li><b>01</b>Developing JobMatch AI</li>
+                <li><b>02</b>Strengthening data structures and algorithms</li>
+                <li><b>03</b>Building full-stack applications</li>
+                <li><b>04</b>Exploring practical AI integration</li>
+                <li><b>05</b>Improving engineering and debugging habits</li>
+              </ul>
+              <p class="edu">
+                <strong>Bachelor of Computer Applications — Computer Science</strong>
+                Deogiri College, affiliated with Dr. Babasaheb Ambedkar Marathwada University
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -196,11 +210,16 @@
     <section id="skills">
       <div class="wrap">
         <div class="head rv">
-          <h2>Technical<br>Index</h2>
+          <div>
+            <span class="badge lab"><b>03</b> — Skills &amp; Stack</span>
+            <h2 class="spotlight-text">Technical<br>Index</h2>
+          </div>
           <p class="lab">Learning &amp; applying through projects</p>
         </div>
-        <div class="idx rv" id="idx"></div>
-        <p class="note2">Listed by what I’ve learned and used in projects — no arbitrary ratings, just an honest index that grows as I build.</p>
+        <div class="skills-card block-card rv">
+          <div class="idx" id="idx"></div>
+          <p class="note2">Listed by what I’ve learned and used in projects — no arbitrary ratings, just an honest index that grows as I build.</p>
+        </div>
       </div>
     </section>
 
@@ -208,18 +227,26 @@
     <section id="journey">
       <div class="wrap">
         <div class="head rv">
-          <h2>The<br>Journey</h2>
+          <div>
+            <span class="badge lab"><b>04</b> — Experience Timeline</span>
+            <h2 class="spotlight-text">The<br>Journey</h2>
+          </div>
           <p class="lab">Milestones &amp; ongoing growth</p>
         </div>
-        <ol class="tl rv" id="tl"></ol>
+        <div class="journey-card block-card rv">
+          <ol class="tl" id="tl"></ol>
+        </div>
       </div>
     </section>
 
     <!-- CONTACT SECTION -->
     <section id="contact" class="contact">
       <div class="wrap">
-        <h2 class="rv">Let’s build<br><span class="serif">something meaningful.</span></h2>
-        <div class="rv" id="cr"></div>
+        <div class="contact-card block-card rv">
+          <span class="badge lab" style="margin-bottom:14px;display:inline-flex"><b>05</b> — Get In Touch</span>
+          <h2 class="spotlight-text">Let’s build<br><span class="serif">something meaningful.</span></h2>
+          <div id="cr"></div>
+        </div>
       </div>
     </section>
   </main>
