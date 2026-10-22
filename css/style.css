@@ -586,59 +586,78 @@ body.cursor-name-focus .hero-title .ln:first-child .title-word {
 }
 
 /* ==========================================================================
-   TABLET & MOBILE HERO ADAPTATIONS (<= 960px)
+   TABLET & MOBILE HERO ADAPTATIONS (Side-by-side Image & Name on Mobile)
    ========================================================================== */
-@media (max-width: 960px) {
+@media (max-width: 860px) {
   .hero {
     min-height: auto;
-    padding-top: calc(var(--hdr) + 20px);
+    padding-top: calc(var(--hdr) + 16px);
     padding-bottom: clamp(36px, 6vw, 64px);
   }
   .hero-grid {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
+    display: grid;
+    grid-template-columns: 1.18fr 0.82fr;
+    grid-template-areas:
+      "status status"
+      "title  visual"
+      "hl     hl";
+    gap: 10px clamp(10px, 3vw, 24px);
+    align-items: end;
     min-height: auto;
-    gap: 18px;
   }
   .hero-content {
-    order: 1;
-    padding-bottom: 0;
+    display: contents;
   }
   .status {
-    order: 1;
-    margin-bottom: 12px;
+    grid-area: status;
+    margin-bottom: 4px;
   }
   .hero-title {
-    order: 2;
-    font-size: clamp(38px, 11vw, 76px);
-    margin-bottom: 12px;
+    grid-area: title;
+    font-size: clamp(30px, 8.5vw, 60px);
+    margin-bottom: 0;
+    align-self: end;
   }
   .hero-visual {
-    order: 2;
-    height: min(60vh, 560px);
-    max-width: 480px;
-    width: 100%;
-    margin: 0 auto 18px auto;
+    grid-area: visual;
+    height: auto;
+    max-height: clamp(180px, 46vw, 360px);
+    max-width: 100%;
+    margin: 0;
+    align-self: end;
+    justify-self: center;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
   }
   .hero-visual .back {
     display: none;
   }
   .fig {
-    max-width: 480px;
-    height: 100%;
+    width: 100%;
+    max-width: clamp(130px, 38vw, 260px);
+    height: auto;
+    max-height: clamp(180px, 46vw, 360px);
     margin-bottom: 0;
     transform: none !important;
   }
+  .fig img {
+    height: auto;
+    max-height: clamp(180px, 46vw, 360px);
+    object-fit: contain;
+    object-position: bottom center;
+  }
   .hero-hl {
-    order: 3;
+    grid-area: hl;
+    margin-top: 14px;
+    padding-bottom: 0;
   }
   .role {
-    font-size: clamp(14px, 3.6vw, 17px);
+    font-size: clamp(13px, 3.4vw, 17px);
     margin-bottom: 10px;
   }
   .tagline {
-    font-size: clamp(20px, 4.8vw, 30px);
+    font-size: clamp(19px, 4.6vw, 28px);
     margin-bottom: 12px;
   }
   .hero-hl .d {
@@ -652,13 +671,19 @@ body.cursor-name-focus .hero-title .ln:first-child .title-word {
 }
 
 @media (max-width: 480px) {
-  .hero-title {
-    font-size: clamp(34px, 11.5vw, 46px);
+  .hero-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 8px 12px;
   }
-  .hero-visual {
-    height: min(54vh, 440px);
-    max-width: min(94vw, 380px);
-    margin: -4px auto 16px auto;
+  .hero-title {
+    font-size: clamp(26px, 8vw, 35px);
+  }
+  .fig {
+    max-width: clamp(130px, 38vw, 180px);
+    max-height: clamp(190px, 48vw, 270px);
+  }
+  .fig img {
+    max-height: clamp(190px, 48vw, 270px);
   }
   .btns {
     flex-direction: column;
@@ -666,6 +691,19 @@ body.cursor-name-focus .hero-title .ln:first-child .title-word {
   .btn {
     width: 100%;
     padding: 14px 20px;
+  }
+}
+
+@media (max-width: 350px) {
+  .hero-grid {
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 6px 10px;
+  }
+  .hero-title {
+    font-size: clamp(22px, 7.5vw, 27px);
+  }
+  .fig {
+    max-width: 120px;
   }
 }
 
