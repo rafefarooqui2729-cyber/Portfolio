@@ -2,10 +2,10 @@
    PORTFOLIO CONFIGURATION & DATA
    ========================================================================== */
 
-// Projects Configuration: real URLs will activate buttons automatically
+// Projects Configuration
 const PROJECTS = {
-  jobmatch: { demo: null, repo: null },
-  twist: { demo: null, repo: null }
+  jobmatch: { demo: 'https://job-match-ai-liard.vercel.app/', repo: null },
+  twist:    { demo: 'https://twistin.vercel.app/', repo: null }
 };
 
 // Verified Contact Details
@@ -53,7 +53,7 @@ const createElem = (tag, className, htmlContent) => {
 document.querySelectorAll('[data-links]').forEach(container => {
   const projectKey = container.dataset.links;
   const project = PROJECTS[projectKey] || {};
-  
+
   const linkDefs = [
     ["demo", "Live demo"],
     ["repo", "Repository"]
@@ -66,8 +66,9 @@ document.querySelectorAll('[data-links]').forEach(container => {
       a.target = '_blank';
       a.rel = 'noopener noreferrer';
       container.append(a);
-    } else if (projectKey === 'jobmatch') {
-      const span = createElem('span', 'btn off', `${label} — not published yet`);
+    } else if (key === 'repo') {
+      // Only show "not published" placeholder for repo, never for demo
+      const span = createElem('span', 'btn off', `${label} — coming soon`);
       container.append(span);
     }
   });
