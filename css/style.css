@@ -307,10 +307,10 @@ nav a.on::after, nav a:hover::after {
   position: relative;
   width: 100%;
   display: grid;
-  grid-template-columns: 1.18fr 0.82fr;
+  grid-template-columns: 1.06fr 0.94fr;
   align-items: end;
-  gap: clamp(28px, 4vw, 56px);
-  min-height: calc(100svh - var(--hdr) - 20px);
+  gap: clamp(24px, 3.5vw, 48px);
+  min-height: calc(100svh - var(--hdr) - 15px);
 }
 
 /* Left Column: Content */
@@ -464,8 +464,8 @@ nav a.on::after, nav a:hover::after {
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 480px;
-  height: min(78vh, 700px);
+  max-width: 580px;
+  height: min(88vh, 840px);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -536,16 +536,16 @@ nav a.on::after, nav a:hover::after {
   }
   .hero-visual {
     order: 2;
-    height: min(44vh, 370px);
-    max-width: 320px;
+    height: min(52vh, 460px);
+    max-width: 380px;
     width: 100%;
-    margin: 4px auto 16px auto;
+    margin: 6px auto 18px auto;
   }
   .hero-visual .back {
     display: none;
   }
   .fig {
-    max-width: 320px;
+    max-width: 380px;
     height: 100%;
     transform: none !important;
   }
@@ -575,8 +575,8 @@ nav a.on::after, nav a:hover::after {
     font-size: clamp(34px, 11.5vw, 46px);
   }
   .hero-visual {
-    height: min(40vh, 310px);
-    max-width: 270px;
+    height: min(48vh, 370px);
+    max-width: min(84vw, 320px);
   }
   .btns {
     flex-direction: column;
@@ -789,18 +789,18 @@ dd li {
 .about-grid {
   position: relative;
   display: grid;
-  grid-template-columns: 360px 1fr;
+  grid-template-columns: 420px 1fr;
   align-items: center;
   gap: clamp(32px, 5vw, 64px);
-  min-height: clamp(480px, 46vw, 620px);
+  min-height: clamp(500px, 48vw, 680px);
 }
 
 .pf {
   position: relative;
   width: 100%;
-  max-width: 360px;
+  max-width: 420px;
   aspect-ratio: 864/1421;
-  max-height: min(72vh, 580px);
+  max-height: min(80vh, 660px);
   margin-inline: auto;
   display: flex;
   align-items: flex-end;
@@ -873,8 +873,8 @@ dd li {
     gap: 28px;
   }
   .pf {
-    width: min(72vw, 280px);
-    max-height: 42vh;
+    width: min(80vw, 340px);
+    max-height: 48vh;
     margin: 0 auto;
   }
   .about-content blockquote {
