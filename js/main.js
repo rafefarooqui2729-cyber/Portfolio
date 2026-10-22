@@ -282,6 +282,28 @@ if (
     }
   });
 
+  // Cursor Color Animation on Name ("Abdul Rafe Farooqui")
+  const heroTitle = $('.hero-title');
+  if (heroTitle) {
+    heroTitle.addEventListener('pointerenter', () => {
+      document.body.classList.add('cursor-name-focus');
+    });
+
+    heroTitle.addEventListener('pointermove', e => {
+      const rect = heroTitle.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      heroTitle.style.setProperty('--name-mx', `${x.toFixed(1)}px`);
+      heroTitle.style.setProperty('--name-my', `${y.toFixed(1)}px`);
+    }, { passive: true });
+
+    heroTitle.addEventListener('pointerleave', () => {
+      document.body.classList.remove('cursor-name-focus');
+      heroTitle.style.setProperty('--name-mx', '-500px');
+      heroTitle.style.setProperty('--name-my', '-500px');
+    });
+  }
+
   // Active click contraction
   window.addEventListener('mousedown', () => document.body.classList.add('cursor-active'));
   window.addEventListener('mouseup', () => document.body.classList.remove('cursor-active'));
