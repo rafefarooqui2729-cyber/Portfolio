@@ -1,10 +1,21 @@
-/* ===== Edit here ===== */
-const PROJECTS = { jobmatch: { demo: null, repo: null }, twist: { demo: null, repo: null } }; // add real URLs to activate buttons
+/* ==========================================================================
+   PORTFOLIO CONFIGURATION & DATA
+   ========================================================================== */
+
+// Projects Configuration: real URLs will activate buttons automatically
+const PROJECTS = {
+  jobmatch: { demo: null, repo: null },
+  twist: { demo: null, repo: null }
+};
+
+// Verified Contact Details
 const CONTACT = [
   ["Email", "rafefarooqui2729@gmail.com", "mailto:rafefarooqui2729@gmail.com"],
   ["LinkedIn", "abdul-rafe-farooqui", "https://www.linkedin.com/in/abdul-rafe-farooqui-2285483b2/"],
-  ["GitHub", "abdul-rafe2729-cyber", "https://github.com/abdul-rafe2729-cyber"]
+  ["GitHub", "rafefarooqui2729-cyber", "https://github.com/rafefarooqui2729-cyber"]
 ];
+
+// Technical Index Data
 const SKILLS = [
   ["Frontend", ["HTML", "CSS", "JavaScript", "React", "Tailwind CSS"]],
   ["Backend", ["Node.js", "Express.js", "REST APIs"]],
@@ -13,124 +24,223 @@ const SKILLS = [
   ["Engineering foundations", ["Object-oriented programming", "Data structures & algorithms", "Debugging", "API integration", "Authentication", "Responsive development"]],
   ["Tools & workflows", ["Git", "GitHub", "AI-assisted development", "Prompt engineering"]]
 ];
-const JOURNEY = [
-  ["Computer Science education", "BCA in Computer Science at Deogiri College."],
-  ["Programming fundamentals", "Java, C and Python."],
-  ["Object-oriented programming", "Applying OOP principles in Java."],
-  ["Frontend development", "HTML, CSS, JavaScript, React and Tailwind CSS."],
-  ["Full-stack development", "Node.js, Express.js, MongoDB and Mongoose."],
-  ["APIs & databases", "REST APIs, authentication and data integration."],
-  ["JobMatch AI", "Building a job-matching platform (in development)."],
-  ["Data structures & algorithms", "Ongoing practice and strengthening."],
-  ["AI-assisted development", "Exploring practical AI integration and prompt engineering."]
-]; // add dates as [title,text,"Mon YYYY"]
-/* ===================== */
 
-const $ = s => document.querySelector(s);
-const h = (t, c, x) => {
-  const e = document.createElement(t);
-  if (c) e.className = c;
-  e.innerHTML = x || '';
-  return e;
+// Journey Milestones Data
+const JOURNEY = [
+  ["Computer Science education", "BCA in Computer Science at Deogiri College, affiliated with Dr. Babasaheb Ambedkar Marathwada University."],
+  ["Programming fundamentals", "Deepened problem solving with Java, C, and Python."],
+  ["Object-oriented programming", "Applying OOP principles and clean design patterns in Java."],
+  ["Frontend development", "Modern responsive web development with HTML, CSS, JavaScript, React, and Tailwind CSS."],
+  ["Full-stack development", "Building complete server-side workflows using Node.js, Express.js, MongoDB, and Mongoose."],
+  ["APIs & databases", "RESTful API design, token-based authentication, and structured database modeling."],
+  ["JobMatch AI", "Architecting and developing an intelligent job-matching platform."],
+  ["Data structures & algorithms", "Continuous practice and algorithmic problem solving."],
+  ["AI-assisted development", "Exploring practical AI integration, intelligent workflows, and prompt engineering."]
+];
+
+/* ==========================================================================
+   DOM UTILITIES & DYNAMIC RENDERING
+   ========================================================================== */
+const $ = selector => document.querySelector(selector);
+const createElem = (tag, className, htmlContent) => {
+  const el = document.createElement(tag);
+  if (className) el.className = className;
+  el.innerHTML = htmlContent || '';
+  return el;
 };
 
-// Selected Work links
-document.querySelectorAll('[data-links]').forEach(n => {
-  const p = PROJECTS[n.dataset.links] || {};
-  [["demo", "Live demo"], ["repo", "Repository"]].forEach(([k, l]) => {
-    if (p[k]) {
-      const a = h('a', 'btn' + (k == 'demo' ? ' p' : ''), l + ' ↗');
-      a.href = p[k];
+// Populate Project Action Links
+document.querySelectorAll('[data-links]').forEach(container => {
+  const projectKey = container.dataset.links;
+  const project = PROJECTS[projectKey] || {};
+  
+  const linkDefs = [
+    ["demo", "Live demo"],
+    ["repo", "Repository"]
+  ];
+
+  linkDefs.forEach(([key, label]) => {
+    if (project[key]) {
+      const a = createElem('a', 'btn' + (key === 'demo' ? ' p' : ''), `${label} ↗`);
+      a.href = project[key];
       a.target = '_blank';
       a.rel = 'noopener noreferrer';
-      n.append(a);
-    } else if (n.dataset.links == 'jobmatch') {
-      const s = h('span', 'btn off', l + ' — not published yet');
-      n.append(s);
+      container.append(a);
+    } else if (projectKey === 'jobmatch') {
+      const span = createElem('span', 'btn off', `${label} — not published yet`);
+      container.append(span);
     }
   });
 });
 
-// Skills Index population
-SKILLS.forEach(([t, l], i) => {
-  const r = h('div', 'row', `<span class="lab"><b>0${i + 1}</b></span><h3>${t}</h3><p>${l.map(x => `<span>${x}</span>`).join('')}</p>`);
-  $('#idx').append(r);
-});
+// Populate Technical Index (Skills)
+const idxContainer = $('#idx');
+if (idxContainer) {
+  SKILLS.forEach(([title, items], index) => {
+    const row = createElem(
+      'div',
+      'row',
+      `<span class="lab"><b>0${index + 1}</b></span>
+       <h3>${title}</h3>
+       <p>${items.map(item => `<span>${item}</span>`).join('')}</p>`
+    );
+    idxContainer.append(row);
+  });
+}
 
-// Journey Timeline population
-JOURNEY.forEach(([t, x, d], i) => {
-  $('#tl').append(h('li', '', `<span class="lab"><b>${String(i + 1).padStart(2, '0')}</b> ${d || 'Date to be added'}</span><div><h3>${t}</h3><p>${x}</p></div>`));
-});
+// Populate The Journey Timeline
+const tlContainer = $('#tl');
+if (tlContainer) {
+  JOURNEY.forEach(([title, description, date], index) => {
+    const li = createElem(
+      'li',
+      '',
+      `<span class="lab"><b>${String(index + 1).padStart(2, '0')}</b> ${date || 'Growth milestone'}</span>
+       <div>
+         <h3>${title}</h3>
+         <p>${description}</p>
+       </div>`
+    );
+    tlContainer.append(li);
+  });
+}
 
-// Contact items population
-CONTACT.forEach(([l, v, u]) => {
-  const a = h('a', 'crow', `<span class="lab">${l}</span><strong>${v}</strong><span class="ar" aria-hidden="true">↗</span>`);
-  a.href = u;
-  if (!u.startsWith('mailto')) {
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
-  }
-  a.setAttribute('aria-label', l + ': ' + v);
-  $('#cr').append(a);
-});
+// Populate Contact Links
+const crContainer = $('#cr');
+if (crContainer) {
+  CONTACT.forEach(([label, value, url]) => {
+    const a = createElem(
+      'a',
+      'crow',
+      `<span class="lab">${label}</span>
+       <strong>${value}</strong>
+       <span class="ar" aria-hidden="true">↗</span>`
+    );
+    a.href = url;
+    if (!url.startsWith('mailto:')) {
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+    }
+    a.setAttribute('aria-label', `${label}: ${value}`);
+    crContainer.append(a);
+  });
+}
 
-// Footer year
-$('#yr').textContent = new Date().getFullYear();
+// Dynamic Footer Year
+const yrEl = $('#yr');
+if (yrEl) yrEl.textContent = new Date().getFullYear();
 
-// Mobile Navigation
-const nav = $('#nav'), b = $('.burger');
-b.onclick = () => {
-  const o = nav.classList.toggle('open');
-  b.setAttribute('aria-expanded', o);
-};
-nav.onclick = e => {
-  if (e.target.tagName == 'A') {
-    nav.classList.remove('open');
-    b.setAttribute('aria-expanded', false);
-  }
-};
-document.addEventListener('keydown', e => {
-  if (e.key == 'Escape') {
-    nav.classList.remove('open');
-    b.setAttribute('aria-expanded', false);
-  }
-});
+/* ==========================================================================
+   NAVIGATION & ACCESSIBILITY
+   ========================================================================== */
+const nav = $('#nav');
+const burger = $('.burger');
 
-// Intersection observer for section reveals
-const io = new IntersectionObserver(es => es.forEach(e => {
-  if (e.isIntersecting) {
-    e.target.classList.add('in');
-    io.unobserve(e.target);
-  }
-}), { threshold: .12 });
-document.querySelectorAll('.rv').forEach(e => io.observe(e));
+if (burger && nav) {
+  burger.addEventListener('click', () => {
+    const isOpen = nav.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(isOpen));
+  });
 
-// Active nav indicator on scroll
-const links = [...nav.querySelectorAll('a')];
-const so = new IntersectionObserver(es => es.forEach(e => {
-  if (e.isIntersecting) links.forEach(a => a.classList.toggle('on', a.hash == '#' + e.target.id));
-}), { rootMargin: '-45% 0px -50% 0px' });
-['work', 'about', 'skills', 'journey', 'contact'].forEach(i => {
-  const el = $('#' + i);
-  if (el) so.observe(el);
-});
+  nav.addEventListener('click', e => {
+    if (e.target.tagName === 'A') {
+      nav.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    }
+  });
 
-// Hero portrait subtle parallax on desktop
-if (matchMedia('(hover:hover) and (prefers-reduced-motion:no-preference)').matches) {
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && nav.classList.contains('open')) {
+      nav.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+      burger.focus();
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 860 && nav.classList.contains('open')) {
+      nav.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+    }
+  }, { passive: true });
+}
+
+/* ==========================================================================
+   SCROLL REVEALS & ACTIVE SECTION INDICATORS
+   ========================================================================== */
+if ('IntersectionObserver' in window) {
+  // Reveal animations
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.rv').forEach(el => revealObserver.observe(el));
+
+  // Active section nav highlighting
+  const navLinks = nav ? [...nav.querySelectorAll('a')] : [];
+  const sectionIds = ['work', 'about', 'skills', 'journey', 'contact'];
+  
+  const sectionObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = '#' + entry.target.id;
+        navLinks.forEach(link => {
+          link.classList.toggle('on', link.getAttribute('href') === id);
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px' });
+
+  sectionIds.forEach(id => {
+    const section = $('#' + id);
+    if (section) sectionObserver.observe(section);
+  });
+} else {
+  // Fallback for older browsers
+  document.querySelectorAll('.rv').forEach(el => el.classList.add('in'));
+}
+
+/* ==========================================================================
+   DESKTOP POINTER PARALLAX (Subtle, Hardware-Accelerated)
+   ========================================================================== */
+if (matchMedia('(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)').matches) {
   const fig = $('#fig');
   if (fig) {
-    addEventListener('pointermove', e => {
-      fig.style.setProperty('--mx', (e.clientX / innerWidth - .5).toFixed(2));
-      fig.style.setProperty('--my', (e.clientY / innerHeight - .5).toFixed(2));
+    let targetX = 0, targetY = 0;
+    let currentX = 0, currentY = 0;
+
+    window.addEventListener('pointermove', e => {
+      targetX = (e.clientX / window.innerWidth - 0.5) * 8;
+      targetY = (e.clientY / window.innerHeight - 0.5) * 5;
     }, { passive: true });
+
+    const animateParallax = () => {
+      currentX += (targetX - currentX) * 0.08;
+      currentY += (targetY - currentY) * 0.08;
+      fig.style.setProperty('--mx', `${currentX.toFixed(2)}px`);
+      fig.style.setProperty('--my', `${currentY.toFixed(2)}px`);
+      requestAnimationFrame(animateParallax);
+    };
+    requestAnimationFrame(animateParallax);
   }
 }
 
-// Interactive Custom Cursor Animation
-const dot = $('#cursorDot');
-const ring = $('#cursorRing');
+/* ==========================================================================
+   INTERACTIVE CUSTOM CURSOR (Desktop Fine-Pointer Only)
+   ========================================================================== */
+const cursorDot = $('#cursorDot');
+const cursorRing = $('#cursorRing');
 
-if (dot && ring && matchMedia('(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)').matches) {
+if (
+  cursorDot && 
+  cursorRing && 
+  matchMedia('(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)').matches
+) {
   let mouseX = -100, mouseY = -100;
   let ringX = -100, ringY = -100;
   let isVisible = false;
@@ -138,54 +248,54 @@ if (dot && ring && matchMedia('(hover:hover) and (pointer:fine) and (prefers-red
   window.addEventListener('pointermove', e => {
     mouseX = e.clientX;
     mouseY = e.clientY;
-    dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+    cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
 
     if (!isVisible) {
       isVisible = true;
       ringX = mouseX;
       ringY = mouseY;
-      dot.style.opacity = '1';
-      ring.style.opacity = '1';
+      cursorDot.style.opacity = '1';
+      cursorRing.style.opacity = '1';
     }
   }, { passive: true });
 
-  const renderRing = () => {
+  const renderCursor = () => {
     ringX += (mouseX - ringX) * 0.18;
     ringY += (mouseY - ringY) * 0.18;
-    ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
-    requestAnimationFrame(renderRing);
+    cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+    requestAnimationFrame(renderCursor);
   };
-  requestAnimationFrame(renderRing);
+  requestAnimationFrame(renderCursor);
 
-  // Interactive hover states on clickable elements
-  const hoverSelector = 'a, button, .btn, .burger, .row, .crow, .prev, input, textarea, [role="button"]';
+  // Interactive targets hover expansion
+  const interactiveSelector = 'a, button, .btn, .burger, .row, .crow, .prev, input, textarea, [role="button"]';
 
   document.addEventListener('mouseover', e => {
-    if (e.target.closest(hoverSelector)) {
+    if (e.target.closest(interactiveSelector)) {
       document.body.classList.add('cursor-hover');
     }
   });
 
   document.addEventListener('mouseout', e => {
-    if (e.target.closest(hoverSelector)) {
+    if (e.target.closest(interactiveSelector)) {
       document.body.classList.remove('cursor-hover');
     }
   });
 
-  // Active / click state
+  // Active click contraction
   window.addEventListener('mousedown', () => document.body.classList.add('cursor-active'));
   window.addEventListener('mouseup', () => document.body.classList.remove('cursor-active'));
 
-  // Window leave and enter
+  // Window bounds detection
   document.addEventListener('mouseleave', () => {
     isVisible = false;
-    dot.style.opacity = '0';
-    ring.style.opacity = '0';
+    cursorDot.style.opacity = '0';
+    cursorRing.style.opacity = '0';
   });
 
   document.addEventListener('mouseenter', () => {
     isVisible = true;
-    dot.style.opacity = '1';
-    ring.style.opacity = '1';
+    cursorDot.style.opacity = '1';
+    cursorRing.style.opacity = '1';
   });
 }
