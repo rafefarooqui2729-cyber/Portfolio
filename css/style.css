@@ -1517,13 +1517,14 @@ footer {
   }
   
   #work .head h2.spotlight-text { animation-delay: 0s !important; }
-  #jobmatch h3.spotlight-text { animation-delay: 0.9s !important; }
-  #twist h3.spotlight-text { animation-delay: 1.8s !important; }
-  #about .head h2.spotlight-text { animation-delay: 2.7s !important; }
-  #about blockquote.spotlight-text { animation-delay: 3.4s !important; }
-  #skills .head h2.spotlight-text { animation-delay: 4.2s !important; }
-  #journey .head h2.spotlight-text { animation-delay: 5.0s !important; }
-  #contact h2.spotlight-text { animation-delay: 5.8s !important; }
+  #timeless h3.spotlight-text { animation-delay: 0.8s !important; }
+  #jobmatch h3.spotlight-text { animation-delay: 1.6s !important; }
+  #twist h3.spotlight-text { animation-delay: 2.4s !important; }
+  #about .head h2.spotlight-text { animation-delay: 3.2s !important; }
+  #about blockquote.spotlight-text { animation-delay: 3.9s !important; }
+  #skills .head h2.spotlight-text { animation-delay: 4.6s !important; }
+  #journey .head h2.spotlight-text { animation-delay: 5.3s !important; }
+  #contact h2.spotlight-text { animation-delay: 6.0s !important; }
 }
 
 @keyframes mobileShimmer {

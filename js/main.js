@@ -4,6 +4,7 @@
 
 // Projects Configuration
 const PROJECTS = {
+  timeless: { demo: 'https://www.timelesstrendss.com/', repo: null },
   jobmatch: { demo: 'https://job-match-ai-liard.vercel.app/', repo: null },
   twist:    { demo: 'https://twistin.vercel.app/', repo: null }
 };
